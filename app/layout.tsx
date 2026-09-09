@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Loud House Referrals",
-  description: "A simple referral and reward experience for local businesses.",
+  title: "Authoric Referrals",
+  description: "Get a free month of digital marketing and web development from Authoric.",
 };
 
 export default function RootLayout({
