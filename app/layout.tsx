@@ -13,8 +13,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nextjs-boilerplate-theta-henna-61.vercel.app"),
   title: "Authoric Referrals",
   description: "Get a free month of digital marketing and web development from Authoric.",
+  icons: {
+    icon: "/authoric-logo.png",
+    apple: "/authoric-logo.png",
+  },
+  openGraph: {
+    title: "Authoric Referrals",
+    description: "Get a free month of digital marketing and web development from Authoric.",
+    images: [
+      {
+        url: "/authoric-share.png",
+        width: 1200,
+        height: 630,
+        alt: "Authoric Referrals",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
