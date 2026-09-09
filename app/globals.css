@@ -27,4 +27,9 @@ p { margin:0; color:var(--muted); font-size:17px; line-height:1.55; }
 .fine-print { margin-top:16px; font-size:12px; line-height:1.45; }
 .offer { margin:23px 0; padding:22px; border-radius:18px; background:var(--paper); }
 .offer strong { display:block; margin-bottom:5px; color:var(--accent); font-size:13px; text-transform:uppercase; letter-spacing:.08em; }
+.lead-form { margin-top:28px; padding-top:28px; border-top:1px solid #e2e8e6; }
+.or { display:flex; align-items:center; gap:10px; color:#8b9899; font-size:12px; font-weight:700; text-transform:uppercase; }
+.or::before,.or::after { content:""; height:1px; flex:1; background:#e2e8e6; }
+.consent { display:flex; gap:10px; text-align:left; color:var(--muted); font-size:11px; line-height:1.45; }
+.consent input { width:18px; height:18px; flex:0 0 auto; accent-color:var(--brand); }
 @media (max-width:560px) { .shell { padding:14px; align-items:start; } .card { margin-top:18px; padding:26px 21px; border-radius:22px; } }
