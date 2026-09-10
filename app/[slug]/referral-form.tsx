@@ -26,7 +26,7 @@ export default function ReferralForm({ business, prizes }: { business:Business; 
       if(navigator.share) await navigator.share({title:business.name,text});
       else window.location.href=`sms:?&body=${encodeURIComponent(text)}`;
       const response=await fetch("/api/share",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({referrerId})});
-      const result=await response.json(); if(response.ok)setShares(Math.min(result.shareAttempts,5));
+      const result=await response.json(); if(response.ok)setShares(Math.min(result.shareAttempts,2));
     } catch (shareError) {
       if(shareError instanceof DOMException&&shareError.name==="AbortError")return;
       setError("The share window could not open. Please try again.");
@@ -34,9 +34,9 @@ export default function ReferralForm({ business, prizes }: { business:Business; 
   }
 
   if(code)return <div className="form">
-    <div><h2>{shares>=5?"You did it!":`Share ${5-shares} more time${5-shares===1?"":"s"}`}</h2><p>Choose a different friend each time from your phone&apos;s share menu.</p></div>
-    <div className="steps" aria-label={`${shares} of 5 shares started`}>{[0,1,2,3,4].map(step=><span className={`step ${step<shares?"done":""}`} key={step}/>)}</div>
-    {shares<5?<button className="button secondary" onClick={share}>Text a friend</button>:<PrizeWheel referrerId={referrerId!} prizes={prizes}/>} 
+    <div><h2>{shares>=2?"You did it!":`Share ${2-shares} more time${2-shares===1?"":"s"}`}</h2><p>Choose a different friend each time from your phone&apos;s share menu.</p></div>
+    <div className="steps" aria-label={`${shares} of 2 shares started`}>{[0,1].map(step=><span className={`step ${step<shares?"done":""}`} key={step}/>)}</div>
+    {shares<2?<button className="button secondary" onClick={share}>Text a friend</button>:<PrizeWheel referrerId={referrerId!} prizes={prizes}/>} 
     <p className="fine-print">The button opens your phone&apos;s share menu. Messages are sent by you, not automatically by the business.</p>
     {error&&<div className="error">{error}</div>}
   </div>;

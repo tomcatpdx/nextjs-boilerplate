@@ -14,7 +14,7 @@ export async function POST(request:Request) {
     const supabase=getSupabaseAdmin();
     const {data:referrer}=await supabase.from("referrers").select("id,business_id,share_attempts").eq("id",referrerId).single();
     if(!referrer)return Response.json({error:"Referral not found."},{status:404});
-    if((referrer.share_attempts??0)<5)return Response.json({error:"Complete five shares to unlock the wheel."},{status:403});
+    if((referrer.share_attempts??0)<2)return Response.json({error:"Complete two shares to unlock the wheel."},{status:403});
 
     const {data:existing}=await supabase.from("wheel_spins").select("redemption_code,expires_at,wheel_prizes(id,name)").eq("referrer_id",referrerId).maybeSingle();
     if(existing){const prize=prizeFromRelation(existing.wheel_prizes);return Response.json({prizeId:prize?.id,prizeName:prize?.name,redemptionCode:existing.redemption_code,expiresAt:existing.expires_at});}
