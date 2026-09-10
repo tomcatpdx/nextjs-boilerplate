@@ -35,16 +35,20 @@ export default function ReferralForm({ business, prizes }: { business:Business; 
 
   if(code)return <div className="form">
     <div><h2>{shares>=2?"You did it!":`Share ${2-shares} more time${2-shares===1?"":"s"}`}</h2><p>Choose a different friend each time from your phone&apos;s share menu.</p></div>
+    {shares<2&&<PrizeWheel prizes={prizes} locked/>}
     <div className="steps" aria-label={`${shares} of 2 shares started`}>{[0,1].map(step=><span className={`step ${step<shares?"done":""}`} key={step}/>)}</div>
     {shares<2?<button className="button secondary" onClick={share}>Text a friend</button>:<PrizeWheel referrerId={referrerId!} prizes={prizes}/>} 
     <p className="fine-print">The button opens your phone&apos;s share menu. Messages are sent by you, not automatically by the business.</p>
     {error&&<div className="error">{error}</div>}
   </div>;
 
-  return <form className="form" onSubmit={start}>
-    <label className="field"><span>Your name</span><input required value={name} onChange={event=>setName(event.target.value)} placeholder="Thomas"/></label>
-    <label className="field"><span>Mobile number</span><input required type="tel" value={phone} onChange={event=>setPhone(event.target.value)} placeholder="(555) 555-5555"/></label>
-    <button className="button" disabled={loading} type="submit">{loading?"Creating your link…":"Get my referral link"}</button>
-    {error&&<div className="error">{error}</div>}
-  </form>;
+  return <div className="prelaunch">
+    <PrizeWheel prizes={prizes} locked/>
+    <form className="form" onSubmit={start}>
+      <label className="field"><span>Your name</span><input required value={name} onChange={event=>setName(event.target.value)} placeholder="Thomas"/></label>
+      <label className="field"><span>Mobile number</span><input required type="tel" value={phone} onChange={event=>setPhone(event.target.value)} placeholder="(555) 555-5555"/></label>
+      <button className="button" disabled={loading} type="submit">{loading?"Creating your link…":"Get my referral link"}</button>
+      {error&&<div className="error">{error}</div>}
+    </form>
+  </div>;
 }

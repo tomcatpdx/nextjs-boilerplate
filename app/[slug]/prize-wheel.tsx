@@ -9,14 +9,14 @@ function shortName(name:string) {
   return name.replace("Free ", "").replace("website credit", "credit").replace("digital marketing", "marketing");
 }
 
-export default function PrizeWheel({referrerId,prizes}:{referrerId:string;prizes:Prize[]}) {
+export default function PrizeWheel({referrerId,prizes,locked=false}:{referrerId?:string;prizes:Prize[];locked?:boolean}) {
   const [rotation,setRotation]=useState(0); const [spinning,setSpinning]=useState(false);
   const [result,setResult]=useState<SpinResult|null>(null); const [showResult,setShowResult]=useState(false); const [error,setError]=useState("");
   const segment=360/Math.max(prizes.length,1);
   const background=useMemo(()=>`conic-gradient(${prizes.map((prize,index)=>`${prize.color} ${index*segment}deg ${(index+1)*segment}deg`).join(",")})`,[prizes,segment]);
 
   async function spin() {
-    if(spinning||result||!prizes.length)return;
+    if(locked||spinning||result||!prizes.length||!referrerId)return;
     setSpinning(true); setError("");
     const response=await fetch("/api/spin",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({referrerId})});
     const data=await response.json();
@@ -33,8 +33,8 @@ export default function PrizeWheel({referrerId,prizes}:{referrerId:string;prizes
     <p className="fine-print">Expires {new Date(result.expiresAt).toLocaleDateString()}. Save this screen to claim your prize.</p>
   </div>;
 
-  return <div className="wheel-stage">
-    <div className="wheel-unlocked"><span>Prize wheel unlocked</span><p>One spin. Every section wins.</p></div>
+  return <div className={`wheel-stage ${locked?"wheel-stage-locked":""}`}>
+    <div className="wheel-unlocked"><span>{locked?"Your reward is waiting":"Prize wheel unlocked"}</span><p>{locked?"Share with two friends to unlock one spin.":"One spin. Every section wins."}</p></div>
     <div className="wheel-wrap">
       <div className="wheel-pointer" aria-hidden="true"/>
       <div className="wheel" style={{background,transform:`rotate(${rotation}deg)`}}>
@@ -44,8 +44,9 @@ export default function PrizeWheel({referrerId,prizes}:{referrerId:string;prizes
         })}
         <div className="wheel-hub">A</div>
       </div>
+      {locked&&<div className="wheel-lock"><span>Locked</span><strong>2 shares to unlock</strong></div>}
     </div>
-    <button className="button wheel-button" disabled={spinning||!prizes.length} onClick={spin}>{spinning?"Spinning…":"Spin the wheel"}</button>
+    {locked?<div className="prize-preview"><span>Possible prizes</span><div>{prizes.map(prize=><small key={prize.id}>{prize.name}</small>)}</div></div>:<button className="button wheel-button" disabled={spinning||!prizes.length} onClick={spin}>{spinning?"Spinning…":"Spin the wheel"}</button>}
     {error&&<div className="error">{error}</div>}
   </div>;
 }
