@@ -1,9 +1,11 @@
 "use client";
 import { FormEvent, useState } from "react";
+import PrizeWheel from "./prize-wheel";
 
 type Business = { id:string; name:string; message_template:string; offer_text:string|null };
+type Prize = { id:string; name:string; color:string };
 
-export default function ReferralForm({ business }: { business:Business }) {
+export default function ReferralForm({ business, prizes }: { business:Business; prizes:Prize[] }) {
   const [name,setName]=useState(""); const [phone,setPhone]=useState("");
   const [referrerId,setReferrerId]=useState<string|null>(null); const [code,setCode]=useState<string|null>(null);
   const [shares,setShares]=useState(0); const [loading,setLoading]=useState(false); const [error,setError]=useState("");
@@ -34,7 +36,7 @@ export default function ReferralForm({ business }: { business:Business }) {
   if(code)return <div className="form">
     <div><h2>{shares>=5?"You did it!":`Share ${5-shares} more time${5-shares===1?"":"s"}`}</h2><p>Choose a different friend each time from your phone&apos;s share menu.</p></div>
     <div className="steps" aria-label={`${shares} of 5 shares started`}>{[0,1,2,3,4].map(step=><span className={`step ${step<shares?"done":""}`} key={step}/>)}</div>
-    {shares<5?<button className="button secondary" onClick={share}>Text a friend</button>:<div className="reward">Reward unlocked. Show this screen to a team member.</div>}
+    {shares<5?<button className="button secondary" onClick={share}>Text a friend</button>:<PrizeWheel referrerId={referrerId!} prizes={prizes}/>} 
     <p className="fine-print">The button opens your phone&apos;s share menu. Messages are sent by you, not automatically by the business.</p>
     {error&&<div className="error">{error}</div>}
   </div>;

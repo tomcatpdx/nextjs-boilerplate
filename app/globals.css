@@ -33,4 +33,17 @@ p { margin:0; color:var(--muted); font-size:17px; line-height:1.55; }
 .or::before,.or::after { content:""; height:1px; flex:1; background:#e2e8e6; }
 .consent { display:flex; gap:10px; text-align:left; color:var(--muted); font-size:11px; line-height:1.45; }
 .consent input { width:18px; height:18px; flex:0 0 auto; accent-color:var(--brand); }
+.wheel-stage { display:grid; gap:20px; justify-items:center; padding-top:6px; }
+.wheel-unlocked span { display:block; color:var(--accent); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.wheel-unlocked p { margin-top:5px; font-size:15px; }
+.wheel-wrap { position:relative; width:294px; height:310px; padding-top:16px; }
+.wheel { position:relative; width:294px; height:294px; overflow:hidden; border:8px solid white; border-radius:50%; box-shadow:0 10px 30px rgba(12,55,62,.22),0 0 0 3px var(--brand); transition:transform 5s cubic-bezier(.12,.68,.12,1); }
+.wheel::after { content:""; position:absolute; inset:0; border-radius:50%; background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.65) 0deg 1deg,transparent 1deg 60deg); }
+.wheel-pointer { position:absolute; z-index:5; top:0; left:50%; width:0; height:0; transform:translateX(-50%); border-left:16px solid transparent; border-right:16px solid transparent; border-top:34px solid var(--brand); filter:drop-shadow(0 3px 2px rgba(0,0,0,.18)); }
+.wheel-label { position:absolute; z-index:2; width:88px; color:white; font-size:11px; font-weight:800; line-height:1.05; text-align:center; text-shadow:0 1px 2px rgba(0,0,0,.28); }
+.wheel-hub { position:absolute; z-index:4; left:50%; top:50%; display:grid; width:58px; height:58px; place-items:center; transform:translate(-50%,-50%); border:5px solid white; border-radius:50%; background:var(--brand); color:white; font-size:27px; font-weight:900; box-shadow:0 3px 12px rgba(0,0,0,.25); }
+.wheel-button { width:100%; background:var(--accent); }
+.winner-card { padding:25px 20px; border:2px solid var(--accent); border-radius:20px; background:linear-gradient(145deg,#fff8ee,#edf6f2); }
+.winner-kicker { display:block; margin-bottom:8px; color:var(--accent); font-size:12px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
+.redemption-code { display:block; margin:12px 0; color:var(--brand); font-size:24px; letter-spacing:.08em; }
 @media (max-width:560px) { .shell { padding:14px; align-items:start; } .card { margin-top:18px; padding:26px 21px; border-radius:22px; } }
