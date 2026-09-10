@@ -53,6 +53,10 @@ p { margin:0; color:var(--muted); font-size:17px; line-height:1.55; }
 .prize-preview>span { display:block; margin-bottom:10px; color:var(--accent); font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
 .prize-preview>div { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
 .prize-preview small { padding:8px; border-radius:9px; background:white; color:var(--brand); font-size:11px; font-weight:700; line-height:1.25; }
+.referral-slots { display:grid; gap:14px; }
+.referral-slot { display:grid; gap:11px; padding:16px; border:1px solid #dce4e2; border-radius:16px; background:#fbfcfb; }
+.referral-slot.complete { border-color:#a9cabd; background:#edf6f2; }
+.referral-slot .button { min-height:45px; }
 .wheel-button { width:100%; background:var(--accent); }
 .winner-card { padding:25px 20px; border:2px solid var(--accent); border-radius:20px; background:linear-gradient(145deg,#fff8ee,#edf6f2); }
 .winner-kicker { display:block; margin-bottom:8px; color:var(--accent); font-size:12px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
